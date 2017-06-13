@@ -1,0 +1,228 @@
+// colors:
+$blueGray50: #ECEFF1
+$blueGray100: #CFD8DC
+$blueGray400: #78909C
+$blueGray500: #607D8B
+$blueGray600: #546E7A
+
+$gray600: #757575
+$gray900: #212121
+
+
+$grid: 64px
+$sp: 0.062em
+
+
+*
+    margin: 0
+    padding: 0
+
+    background: transparent
+
+    outline: none
+    border: none
+
+    box-sizing: border-box
+
+
+img
+    display: block
+
+
+/* Roboto */
+.roboto
+    -webkit-font-smoothing: antialiased
+    font-family: 'Roboto', sans-serif
+    color: white
+
+
+.roboto.gray
+    color: $gray600
+
+.roboto.dark
+    color: $gray900
+
+
+.roboto.headline
+    font-size: $sp * 24
+    font-weight: 400
+
+.roboto.title
+    font-size: $sp * 20
+    font-weight: 500
+
+.roboto.subheading
+    font-size: $sp * 15
+    font-weight: 400
+
+.roboto.body-1
+    font-size: $sp * 13
+    font-weight: 400
+
+.roboto.button
+    font-size: $sp * 14
+    font-weight: 500
+    text-transform: uppercase
+
+.roboto.caption
+    font-size: $sp * 12
+    font-weight: 500
+
+
+
+
+/* Ripple */
+.ripple
+    overflow: hidden
+    position: relative
+
+.ripple.overflow
+    overflow: visible
+
+.ripple > .inside
+    display: block
+
+    z-index: 20
+    position: absolute
+
+    top: 50%; left: 50%
+    border-radius: 50%
+
+    transform: translate(-50%, -50%) scale(0)
+    animation:  keyframes-ripple 300ms ease-out
+    background: $blueGray100
+
+    margin-bottom: 100%
+
+@keyframes keyframes-ripple
+    0%
+        transform: translate(-50%, -50%) scale(0)
+        opacity: 1
+    100%
+        transform: translate(-50%, -50%) scale(1)
+        opacity: 0
+
+
+
+
+=centered()
+    display: flex
+    justify-content: center
+    align-items: center
+
+
+=size($width, $height: false)
+    @if $height
+        height: $height
+    @else
+        height: $width
+    width: $width
+
+
+=max-size($width, $height: false)
+    @if $height
+        max-height: $height
+    @else
+        max-height: $width
+    max-width: $width
+
+
+=elevation($level)
+    @if $level
+        box-shadow: 0 ($level / 2 * 1px) (2px + $level) rgba(0,0,0,0.06 + 0.01 * $level), 0 (($level - 1) * 1px) ($level * 2px) rgba(0,0,0,0.24 - 0.01 * $level)
+    @else
+        box-shadow: none
+
+
+body
+    background: $blueGray50
+    +centered()
+    +size(100vw, 100vh)
+
+
+.bar
+    height: 64px
+
+
+center.google
+    +size(100%, auto)
+    max-width: $grid * 10
+    flex-direction: column
+
+
+
+
+figure.google-logo
+    +size(100%, $grid * 4)
+    background-image: url(http://wallpapercave.com/wp/X7lwb1q.jpg)
+    background-position: center
+    background-size: cover
+
+
+figure.google-logo img
+    padding: 0 96px
+    padding-top: 60px
+    padding-bottom: 32px
+    object-fit: contain
+    +size(100%)
+
+
+section
+    +size(100%, auto)
+    padding: 8px
+
+
+figure.card
+    border-radius: 2px
+    background: white
+    +size(100%)
+    +elevation(5)
+
+
+form.form-search
+    display: flex
+    justify-content: space-between
+    +elevation(0)
+    border-radius: 2px
+
+
+form.form-search input.search
+    margin-left: 24px
+    +size(100%, inherit)
+
+    font-size: $sp * 19
+    font-weight: 400
+
+
+form.form-search button
+    +size(64px)
+
+
+section.apps
+    overflow: hidden
+
+
+section.apps.hidden
+    height: 146px
+
+
+section.apps figure.card
+    display: flex
+
+    justify-content: flex-start
+
+    flex-direction: row
+    flex-wrap: wrap
+
+    padding: 16px
+    +size(100%)
+
+
+section.apps figure.card .app
+    background-image: url(https://ssl.gstatic.com/gb/images/p1_9186ee19.png)
+    background-size: 64px 2134px
+
+    +size(64px)
+    margin: 17px
+
+    object-fit: contain
