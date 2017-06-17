@@ -48,8 +48,8 @@ apps = [{
 
 
 document.addEventListener 'DOMContentLoaded', (event) ->
-    document.querySelector('figure.google-logo img').src =
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2000px-Google_2015_logo.svg.png'
+    document.querySelector('figure.google-logo img')
+        .src = 'https://goo.gl/eZ3JwR'
 
     placholder = document.querySelector('section.apps figure.card')
     template = document.getElementById('app-template').content

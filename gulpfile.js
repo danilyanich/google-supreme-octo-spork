@@ -23,6 +23,7 @@ const config = {
         }
     },
     build: {
+        public: './docs',
         dest: './build',
         maps: './maps'
     }
@@ -87,10 +88,17 @@ gulp.task('html', () =>
     gulp.src(config.assets.types.html)
     .pipe(plumber(notify))
     .pipe(htmlmin({
-        collapseWhitespace: true
+        collapseWhitespace: true,
+        html5: true
     }))
     .pipe(gulp.dest(config.build.dest))
 );
 
 
 gulp.task('build', ['coffee', 'sass', 'html']);
+
+
+gulp.task('publish', ['build'], () =>
+    gulp.src(config.build.dest + '/*.*')
+    .pipe(gulp.dest(config.build.public))
+);
