@@ -1,4 +1,6 @@
 const gulp = require('gulp');
+const plumber = require('gulp-plumber');
+const If = require('gulp-if');
 
 const cssnano = require('gulp-cssnano');
 const coffee = require('gulp-coffee')
@@ -11,51 +13,84 @@ const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
 
 
-const dest = './build';
-const maps = './maps';
+const config = {
+    assets: {
+        all: 'assets/*',
+        types: {
+            html: 'assets/index.html',
+            sass: 'assets/styles.sass',
+            coffee: 'assets/script.coffee'
+        }
+    },
+    build: {
+        dest: './build',
+        maps: './maps'
+    }
+}
+
+
+function notify(error) {
+    console.error(error.toString());
+    browserSync.notify(
+        `${error.filename}` +
+        `<br>${error.message}` +
+        `<div style="color: red;">ERROR</div>`,
+    1000 * 60 * 60);
+    this.emit('finish');
+}
 
 
 gulp.task('browser-sync', () => {
     browserSync.init({
-        server: 'build/',
+        server: config.build.dest,
         open: false,
         port: 1157
     });
-    gulp.watch('build/*')
-        .on('change', browserSync.reload);
+    gulp.watch(config.assets.all)
+    .on('change', () => {
+        gulp.src(config.assets.all)
+        .pipe(plumber(notify))
+        .pipe(sourcemaps.init())
+            .pipe(If('*.coffee', coffee()))
+            .pipe(If('*.sass', sass()))
+        .pipe(sourcemaps.write(config.build.maps))
+        .pipe(gulp.dest(config.build.dest))
+        .on('finish', () => {
+            browserSync.reload();
+            browserSync.notify(
+                `<div style="color: green;">OK</div>`,
+            1000);
+        });
+    });
 });
 
 
 gulp.task('coffee', () =>
-    gulp.src('assets/script.coffee')
-        .pipe(sourcemaps.init())
-        .pipe(coffee())
-        .pipe(uglify())
-        .pipe(sourcemaps.write(maps))
-        .pipe(gulp.dest(dest)));
+    gulp.src(config.assets.types.coffee)
+    .pipe(plumber(notify))
+    .pipe(coffee())
+    .pipe(uglify())
+    .pipe(gulp.dest(config.build.dest))
+);
 
 
 gulp.task('sass', () =>
-    gulp.src('assets/styles.sass')
-        .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cssnano())
-        .pipe(sourcemaps.write(maps))
-        .pipe(gulp.dest(dest)));
+    gulp.src(config.assets.types.sass)
+    .pipe(plumber(notify))
+    .pipe(sass())
+    .pipe(cssnano())
+    .pipe(gulp.dest(config.build.dest))
+);
 
 
 gulp.task('html', () =>
-    gulp.src('assets/index.html')
-        .pipe(sourcemaps.init())
-        .pipe(htmlmin({ collapseWhitespace: true }))
-        .pipe(sourcemaps.write(maps))
-        .pipe(gulp.dest(dest)));
+    gulp.src(config.assets.types.html)
+    .pipe(plumber(notify))
+    .pipe(htmlmin({
+        collapseWhitespace: true
+    }))
+    .pipe(gulp.dest(config.build.dest))
+);
 
 
 gulp.task('build', ['coffee', 'sass', 'html']);
-
-
-gulp.task('live-build', () =>
-    gulp.watch('assets/*')
-        .on('change', () =>
-            gulp.start('build')));

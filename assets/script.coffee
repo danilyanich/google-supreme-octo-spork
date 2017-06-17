@@ -1,19 +1,66 @@
 document.forms.search.onsubmit = (event) ->
     event.preventDefault()
-    window.location.href = 'https://www.google.by/search?q=' + document.forms.search.search.value
+    window.location.href =
+        'https://www.google.by/search?q=' + document.forms.search.search.value
 
 
-document.addEventListener('DOMContentLoaded', (event) ->
+apps = [{
+    position: -2001
+    title: 'Search'
+    link: 'https://www.google.com'
+},{
+    position: -483
+    title: 'Play'
+    link: 'https://play.google.com'
+},{
+    position: -1035
+    title: 'Mail'
+    link: 'https://mail.google.com'
+},{
+    position: -897
+    title: 'Drive'
+    link: 'https://drive.google.com'
+},{
+    position: -1794
+    title: 'Calendar'
+    link: 'https://www.google.com/calendar'
+},{
+    position: -1242
+    title: 'Account'
+    link: 'https://myaccount.google.com'
+},{
+    position: -621
+    title: 'Maps'
+    link: 'https://maps.google.com'
+},{
+    position: -966
+    title: 'YouTube'
+    link: 'https://www.youtube.com'
+},{
+    position: -1104
+    title: 'Translate'
+    link: 'https://translate.google.com'
+},{
+    position: -69
+    title: 'Photos'
+    link: 'https://photos.google.com'
+}]
+
+
+document.addEventListener 'DOMContentLoaded', (event) ->
+    document.querySelector('figure.google-logo img').src =
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2000px-Google_2015_logo.svg.png'
+
     placholder = document.querySelector('section.apps figure.card')
-    source = document.getElementById('apps-logos').content.querySelector('img').src
+    template = document.getElementById('app-template').content
 
-    for index in [0..30]
-        div = document.createElement('div')
-        div.classList.add('app')
-        div.style['background-position-y'] = '' + (-2134 / 31 * index) + 'px'
-        placholder.appendChild(div)
-
-);
+    for app in apps
+        content = template.cloneNode(true)
+        content.querySelector('figure')
+            .style['background-position-y'] = "#{app.position}px"
+        content.querySelector('.caption').innerText = app.title
+        content.querySelector('a').href = app.link
+        placholder.appendChild(content)
 
 
 HTMLElement.prototype.querySelectorParent = (query) ->
@@ -27,7 +74,7 @@ HTMLElement.prototype.querySelectorParent = (query) ->
     return false
 
 
-document.querySelector('body').addEventListener('click', (event) ->
+document.querySelector('body').addEventListener 'click', (event) ->
     affected = event.target.querySelectorParent('.ripple')
     if affected
         rect = affected.getBoundingClientRect()
@@ -60,4 +107,3 @@ document.querySelector('body').addEventListener('click', (event) ->
         setTimeout(() ->
             affected.removeChild(ripple)
         , 3000)
-);

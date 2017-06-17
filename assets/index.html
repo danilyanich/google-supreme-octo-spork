@@ -4,21 +4,11 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>google-supreme-octo-spork</title>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-    <style>
-        /* Rules for sizing the icon. */
-        .material-icons.md-18 { font-size: 18px; }
-        .material-icons.md-24 { font-size: 24px; }
-        .material-icons.md-36 { font-size: 36px; }
-        .material-icons.md-48 { font-size: 48px; }
-        /* Rules for using icons as black on a light background. */
-        .material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-        .material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
-        /* Rules for using icons as white on a dark background. */
-        .material-icons.md-light { color: rgba(255, 255, 255, 1); }
-        .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
-    </style>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <link href="styles.css" rel="stylesheet" type="text/css">
 
@@ -26,8 +16,11 @@
 <body>
 
 
-<template id="apps-logos">
-    <img src="https://ssl.gstatic.com/gb/images/p1_9186ee19.png"/>
+<template id="app-template">
+    <a class="app ripple overflow centered">
+        <figure></figure>
+        <div class="roboto caption gray"></div>
+    </a>
 </template>
 
 
@@ -38,7 +31,7 @@
     <figure class="card">
 
         <figure class="google-logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2000px-Google_2015_logo.svg.png "/>
+            <img src=""/>
         </figure>
 
         <form name="search" class="card bar form-search ripple" action="index.html">
@@ -51,7 +44,7 @@
     </figure></section>
 
 
-    <section class="apps hidden">
+    <section class="apps">
     <figure class="card">
 
     </figure></section>

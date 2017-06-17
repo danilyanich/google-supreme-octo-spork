@@ -1,3 +1,26 @@
+/* Rules for sizing the icon. */
+.material-icons.md-18
+    font-size: 18px
+.material-icons.md-24
+    font-size: 24px
+.material-icons.md-36
+    font-size: 36px
+.material-icons.md-48
+    font-size: 48px
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark
+    color: rgba(0, 0, 0, 0.54)
+.material-icons.md-dark.md-inactive
+    color: rgba(0, 0, 0, 0.26)
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light
+    color: rgba(255, 255, 255, 1)
+.material-icons.md-light.md-inactive
+    color: rgba(255, 255, 255, 0.3)
+
+
+
+
 // colors:
 $blueGray50: #ECEFF1
 $blueGray100: #CFD8DC
@@ -9,8 +32,10 @@ $gray600: #757575
 $gray900: #212121
 
 
-$grid: 64px
+$grid: 48px
 $sp: 0.062em
+
+
 
 
 *
@@ -29,6 +54,8 @@ img
     display: block
 
 
+
+
 /* Roboto */
 .roboto
     -webkit-font-smoothing: antialiased
@@ -39,6 +66,7 @@ img
 .roboto.gray
     color: $gray600
 
+
 .roboto.dark
     color: $gray900
 
@@ -47,22 +75,27 @@ img
     font-size: $sp * 24
     font-weight: 400
 
+
 .roboto.title
     font-size: $sp * 20
     font-weight: 500
+
 
 .roboto.subheading
     font-size: $sp * 15
     font-weight: 400
 
+
 .roboto.body-1
     font-size: $sp * 13
     font-weight: 400
+
 
 .roboto.button
     font-size: $sp * 14
     font-weight: 500
     text-transform: uppercase
+
 
 .roboto.caption
     font-size: $sp * 12
@@ -76,8 +109,10 @@ img
     overflow: hidden
     position: relative
 
+
 .ripple.overflow
     overflow: visible
+
 
 .ripple > .inside
     display: block
@@ -90,9 +125,10 @@ img
 
     transform: translate(-50%, -50%) scale(0)
     animation:  keyframes-ripple 300ms ease-out
-    background: $blueGray100
+    background: $gray600
 
     margin-bottom: 100%
+
 
 @keyframes keyframes-ripple
     0%
@@ -134,6 +170,8 @@ img
         box-shadow: none
 
 
+
+
 body
     background: $blueGray50
     +centered()
@@ -141,7 +179,9 @@ body
 
 
 .bar
-    height: 64px
+    height: 48px
+
+
 
 
 center.google
@@ -160,11 +200,13 @@ figure.google-logo
 
 
 figure.google-logo img
-    padding: 0 96px
+    padding: 0 16px
     padding-top: 60px
     padding-bottom: 32px
     object-fit: contain
     +size(100%)
+
+
 
 
 section
@@ -176,18 +218,27 @@ figure.card
     border-radius: 2px
     background: white
     +size(100%)
-    +elevation(5)
+    +elevation(2)
+
+
 
 
 form.form-search
     display: flex
     justify-content: space-between
-    +elevation(0)
+
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.08), 0 -1px 4px rgba(0, 0, 0, 0.22)
     border-radius: 2px
+
+    transition: all 0.3s 0.2s ease
+
+
+form.form-search:hover
+    +elevation(4)
 
 
 form.form-search input.search
-    margin-left: 24px
+    margin-left: 16px
     +size(100%, inherit)
 
     font-size: $sp * 19
@@ -195,34 +246,27 @@ form.form-search input.search
 
 
 form.form-search button
-    +size(64px)
+    +size(48px)
+    +centered()
 
 
-section.apps
-    overflow: hidden
-
-
-section.apps.hidden
-    height: 146px
 
 
 section.apps figure.card
-    display: flex
-
-    justify-content: flex-start
-
-    flex-direction: row
-    flex-wrap: wrap
-
-    padding: 16px
+    padding: 8px
     +size(100%)
+    overflow: hidden
 
 
 section.apps figure.card .app
+    margin: 8px
+    object-fit: contain
+    display: inline-block
+    text-decoration: none
+
+
+section.apps figure.card .app figure
+    +size(64px)
+
     background-image: url(https://ssl.gstatic.com/gb/images/p1_9186ee19.png)
     background-size: 64px 2134px
-
-    +size(64px)
-    margin: 17px
-
-    object-fit: contain
